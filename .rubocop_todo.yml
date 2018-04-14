@@ -1,0 +1,13 @@
+
+AllCops:
+  Excludes:
+    - 'app/assets/**/*'
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'data/**/*'
+    - 'db/**/*'
+    - 'public/**/*'
+    - 'ssl/**/*'
+    - 'vendor/**/*'
+    - 'Gemfile'
+    - 'app/controller/users/**/*'

@@ -14,17 +14,17 @@ class User < ApplicationRecord
       (User.where(id: blocked_users) + [self])
   end
 
-  def blocked_by_me
-    User.where(id: FollowingList.blocked.where(from_id: id).pluck(:to_id))
-  end
+  # def blocked_by_me
+  #   User.where(id: FollowingList.blocked.where(from_id: id).pluck(:to_id))
+  # end
 
-  def blocked_by_whom
-    User.where(id: FollowingList.blocked.where(to_id: id).pluck(:from_id))
-  end
+  # def blocked_by_whom
+  #   User.where(id: FollowingList.blocked.where(to_id: id).pluck(:from_id))
+  # end
 
-  def blocked_users
-    (blocked_by_me + blocked_by_whom).uniq
-  end
+  # def blocked_users
+  #   (blocked_by_me + blocked_by_whom).uniq
+  # end
 
   def followers
     User.where(id: FollowingList.where(to_id: id).accepted.pluck(:from_id))
