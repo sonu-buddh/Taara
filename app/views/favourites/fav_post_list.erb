@@ -1,0 +1,58 @@
+<%= render :partial => "dashboard/header_title" %>
+<body class="w3-light-grey">
+  <% @fav_list.each do |p| %>
+    <div class="w3-content" style="max-width:2000px">
+      <div class="w3-row col-md-offset-2">
+        <div class="w3-col 14 s10">
+          <div class="w3-card-4 w3-margin w3-white">
+            <div class="w3-container">
+              <h3>
+                <u><%= link_to p.post.title, profile_user_path(id: p.id) %></u>
+              </h3>
+              <h5>The Description,
+                <span class="w3-opacity">
+                  <%= p.created_at.strftime("%d %b, %Y %H:%M") %>
+                </span>
+              </h5>
+              <%= p.post.description%>
+            </div>
+            <div class="w3-container">
+              <div class="w3-row">
+                <small>
+                  <% if p.post.user.id == current_user.id %>
+                    <p align="right">
+                      <%= link_to "Edit Post" ,edit_post_path(id: p.post.id),:method => :get, class: 'btn btn-primary' %>
+                      <%= link_to "Delete Post" ,post_path(id: p.post.id),:method => :delete, remote: true,:confirm => "Are you sure?" , class: 'btn btn-primary' %>
+                    <% end %>
+
+                  </p>
+                </small>
+                <div class="btn-group">
+                  <% if  p.post.favorite_lists.where(user_id: p.post.id ).count == 0 %>
+                    <%= button_to "Add to favourites", favourite_post_path(post_id: p.post.id),remote: true , method: "post" , id: "btn#{p.post_id}" , class: "btn btn-w-m btn-default btn-space" %>
+                  <% else %>
+                    <%= button_to "Remove from favourites", favourite_post_path(post_id: p.post.id), remote: true , method: "post" , id: "btn#{p.post_id}",class: "btn btn-w-m btn-default btn-space" %>
+                  <% end %>
+
+                  <% if  p.post.favorite_lists.where(user_id: p.post.id ).count == 0 %>
+                    <%= button_to "Like", feedbacks_like_path(post_id: p.post.id) ,remote: true , method: "post" , id: "likebtn#{p.post.id}",class: "btn btn-w-m btn-default" %>
+                  <% else %>
+                    <% if  p.post.feedbacks.where(user_id: p.post.id , like: true).count == 0 %>
+                      <%= button_to "Like", feedbacks_like_path(post_id: p.post.id) , remote: true, method: "post" , id: "likebtn#{p.post.id}",class: "btn btn-w-m btn-default" %>
+                    <% else %>
+                      <%= button_to "Dislike", feedbacks_like_path(post_id: p.post.id) , remote: true, method: "post" , id: "likebtn#{p.post.id}",class: "btn btn-w-m btn-default"%>
+                    <% end %>
+                  <% end %>
+
+                </div>
+                <div align="right">
+                  <%= p.post.user.name %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</body>

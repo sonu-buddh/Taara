@@ -1,0 +1,59 @@
+// Place all the styles related to the dashboard controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+  /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+
+.dashboard-posts
+{
+  color: black;
+  border: 2px solid black;
+  border-radius: 2%;
+  background-color: #eff5f5;
+  float: left;
+  word-wrap: break-word;
+  padding: 15px;
+  margin: 5px;
+  width: 24%;
+  height: 300px;
+
+  .title
+  {
+    height: 50px;
+    font-size: 20px;
+  }
+ 
+  .description
+  {
+    padding-top: 3px;
+    height: 165px;
+    font-size: 18px;
+  }
+
+  .name
+  {
+    padding-top: 3px;
+    height: 6px;
+    font-size: 20px;
+  }
+  
+  .time
+  {
+    height: 15px;
+    font-size: 10px;
+    text-align: right;
+  }
+}
+
+
+
+

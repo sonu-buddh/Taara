@@ -1,0 +1,21 @@
+<div class="ibox float-e-margins">
+  <div class="ibox-content">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-1">
+        <h3 class="m-t-none m-b">Create Post</h3>
+        <div class="form-group">
+          <%= form_for @post, url: post_path ,:method => :patch do |f| %>
+          <%= f.label :title %><br/>
+          <%= f.text_field :title , class: 'form-control',required: true %><br>
+          <%= f.label :tags %><br/>
+          <%= f.text_field :tag_list, value: f.object.tag_list.to_s %><br>
+          <%= f.label :description %><br/>
+          <%= f.text_area :description, class: 'form-control',required: true, style: "min-height: 250px;" %><br>
+          <%= f.submit "Update Post" , class: "btn btn-sm btn-primary pull-right m-t-n-xs" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>

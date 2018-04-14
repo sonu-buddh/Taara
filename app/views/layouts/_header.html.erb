@@ -1,0 +1,46 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav">
+				<li><%= link_to "Home", root_path %></li>
+				<% if user_signed_in? %>
+					<li><%= link_to "Profile" ,profile_user_path(id: current_user.id) %></li>
+					<li><%= link_to "Create post" , new_post_path %></li>
+					<li><%= link_to "Users" , show_user_path %></li>
+					<li><%= link_to "Favourites" , favourites_fav_post_list_path %></li>
+					<li><%= link_to "Explore user", follows_path %></li>
+
+				<% end %>
+
+				<div class="navbar-form navbar-left" align="right">
+					<%= form_tag(dashboard_search_path, :method => "get", id: "search-form") do %>
+					<%= text_field_tag :search, params[:search], placeholder: "What're we looking for ?" ,class: 'form-control',required: true %>
+					<%= submit_tag "Search", :name => nil,class: 'btn btn-primary' , id: "search_submit" %>
+				<% end %>
+			</div>
+		</ul>
+
+		<ul class="nav navbar-nav navbar-right">
+
+			<% if !user_signed_in? %>
+				<li><%= link_to "Sign up" , new_user_registration_path %></li>
+				<li>
+					<%= link_to new_user_session_path do %>
+					<span class="glyphicon glyphicon-log-in"></span>
+					Login
+				<% end %>
+			</li>
+		<% else %>
+			<li>
+
+				<%= link_to current_user.name , profile_user_path(current_user.id) %>
+			</li>
+			<li>
+				<%= link_to('Logout', destroy_user_session_path, method: 'delete') %>
+			<% end %>
+		</li>
+
+</ul>
+</div>
+</div>
+</nav>

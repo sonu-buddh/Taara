@@ -1,0 +1,42 @@
+<%= render :partial => "dashboard/header_title" %>
+<div class="col-sm-offset-1">
+  <table class="table table-hover" style=" width: 50%">
+    <thead>
+
+
+
+      <tr><b>User List</b>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |u| %><br>
+        <% if u.id != current_user.id %>
+
+          <tr>
+            <td>
+              <% if u.name.present? %>
+                <%= link_to u.name , profile_user_path(id: u.id) %>
+              <% else %>
+                <p>
+                  NOT AVAILABLE
+                </p>
+              <% end %>
+            </td>
+            <td><%= u.email %></td>
+            <td>
+              <%= link_to "Delete", user_registration_path, :confirm => "Are you sure?", :method => :delete , class: 'btn btn-primary' %>
+              <%= link_to "Update", edit_user_registration_path(id: u.id) ,class: 'btn btn-primary' , remote: true %>
+            
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= will_paginate @users , renderer: BootstrapPagination::Rails %>
+
+</div>

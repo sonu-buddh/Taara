@@ -1,0 +1,105 @@
+<ul>
+	<h1 align="center">
+		<b>MY BLOG</b>
+	</h1>
+
+	<p align="center">Welcome to the blog of Taara
+	</p>
+
+	<ul align="right">
+		<%= link_to "Followes" , followers_path , class: 'btn btn-default'%>
+		<%= link_to "Followings" , followings_path , class: 'btn btn-default'%></ul>
+
+</ul>
+
+<div class="col-sm-offset-2 " style="width: 50%">
+	<table class="table ">
+		<tr class="success">
+			<th>User name:</th>
+			<td>
+				<%= @user.name %>
+			</td>
+		</tr>
+		<tr class="success">
+			<th>Email:</th>
+			<td>
+				<%= @user.email %>
+			</td>
+		</tr>
+		<tr class="success">
+			<th>User Create-Date:</th>
+			<td>
+				<%= @user.created_at.strftime('%C-%m-%Y') %>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<% if @user.posts.present? %>
+	<div class="btn btn-default col-md-offset-9">
+
+		<%= sort_link "created_at", "Order By" %>
+
+	</div>
+<% end %>
+<% @posts.each do |p| %>
+
+<div class="w3-content" style="max-width:2000px">
+	<div class="w3-row col-md-offset-2">
+		<div class="w3-col 14 s10 ">
+			<div class="w3-card-4 w3-margin w3-white">
+				<div class="w3-container  col-md-offset-1">
+
+					<h3>
+						<tr>
+							<u>
+								<%= link_to p.title, profile_user_path(id: p.id) %>
+							</u>
+						</h3>
+						<h5>Title description,
+							<span class="w3-opacity">
+								<%= p.created_at.strftime("%d %b, %Y %H:%M") %>
+							</span>
+						</h5>
+						<%= p.description%>
+					</div>
+					<div class="w3-container  col-md-offset-1">
+						<div class="w3-row">
+							<small>
+								<% if p.user == current_user %>
+									<p align="right">
+										<%= link_to "Edit Post" ,edit_post_path(id: p.id),:method => :get, class: 'btn btn-primary' %>
+										<%= link_to "Delete Post" ,post_path(id: p.id),:method => :delete, remote: true,:confirm => "Are you sure?" , class: 'btn btn-primary' %>
+									<% end %>
+
+								</p>
+							</small>
+
+							<div class="btn-group">
+								<% if  p.favorite_lists.where(user_id: p.id ).count == 0 %>
+									<%= button_to "Add to favourites", favourite_post_path(post_id: p.id),remote: true , method: "post" , id: "btn#{p.id}" , class: "btn btn-w-m btn-default btn-space" %>
+								<% else %>
+									<%= button_to "Remove from favourites", favourite_post_path, remote: true , method: "post" , id: "btn#{p.id}",class: "btn btn-w-m btn-default btn-space" %>
+								<% end %>
+								<% if  p.favorite_lists.where(user_id: p.id ).count == 0 %>
+									<%= button_to "Like", feedbacks_like_path(post_id: p.id) ,remote: true , method: "post" , id: "likebtn#{p.id}",class: "btn btn-w-m btn-default" %>
+								<% else %>
+									<% if  p.feedbacks.where(user_id: p.id , like: true).count == 0 %>
+										<%= button_to "Like", feedbacks_like_path(post_id: p.id) , remote: true,method: "post" , id: "likebtn#{p.id}",class: "btn btn-w-m btn-default" %>
+									<% else %>
+										<%= button_to "Dislike", feedbacks_like_path(post_id: p.id) , remote: true,method: "post" , id: "likebtn#{p.id}",class: "btn btn-w-m btn-default"%>
+									<% end %>
+								<% end %>
+
+							</div>
+							<div align="right">
+								<%= p.user.name %>
+							</div>
+							<div class="btn btn-default"><%= render p.tags %></div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
