@@ -1,3 +1,0 @@
-# FavouritesHelper
-module FavouritesHelper
-end

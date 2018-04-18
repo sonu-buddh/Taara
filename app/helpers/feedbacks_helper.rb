@@ -1,3 +1,0 @@
-# FeedbacksHelper
-module FeedbacksHelper
-end
