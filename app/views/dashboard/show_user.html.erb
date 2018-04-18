@@ -3,9 +3,9 @@
   <table class="table table-hover" style=" width: 50%">
     <thead>
 
-
-
-      <tr><b>User List</b>
+      <tr>
+        <b>User List</b>
+        <th>Image</th>
         <th>Name</th>
         <th>Email</th>
         <th>Action</th>
@@ -17,6 +17,10 @@
 
           <tr>
             <td>
+              <img alt="image" class="img-circle" <%= image_tag(u.avatar_url , size: "40x40") %>
+            </td>
+
+            <td>
               <% if u.name.present? %>
                 <%= link_to u.name , profile_user_path(id: u.id) %>
               <% else %>
@@ -27,9 +31,10 @@
             </td>
             <td><%= u.email %></td>
             <td>
-              <%= link_to "Delete", user_registration_path, :confirm => "Are you sure?", :method => :delete , class: 'btn btn-primary' %>
-              <%= link_to "Update", edit_user_registration_path(id: u.id) ,class: 'btn btn-primary' , remote: true %>
-            
+              <%= link_to "Delete", user_registration_path(id: u.id), :confirm => "Are you sure?", :method => :delete , class: 'btn btn-primary' %>
+              <% if can? :update, @resource %>
+                <%= link_to "Update", edit_user_registration_path(id: u.id) ,class: 'btn btn-primary' %>
+              <% end %>
             </td>
           </tr>
         <% end %>

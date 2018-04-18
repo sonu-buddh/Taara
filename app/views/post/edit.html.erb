@@ -9,8 +9,8 @@
           <%= f.text_field :title , class: 'form-control',required: true %><br>
           <%= f.label :tags %><br/>
           <%= f.text_field :tag_list, value: f.object.tag_list.to_s %><br>
-          <%= f.label :description %><br/>
-          <%= f.text_area :description, class: 'form-control',required: true, style: "min-height: 250px;" %><br>
+          <%= f.label :description, as: :ckeditor %><br/>
+          <%= f.cktext_area :description, as: :ckeditor, input_html: { ckeditor: { height: 400 } } , class: 'form-control',required: true, style: "min-height: 250px;" %><br>
           <%= f.submit "Update Post" , class: "btn btn-sm btn-primary pull-right m-t-n-xs" %>
         <% end %>
       </div>

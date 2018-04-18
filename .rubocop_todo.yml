@@ -10,4 +10,9 @@ AllCops:
     - 'ssl/**/*'
     - 'vendor/**/*'
     - 'Gemfile'
-    - 'app/controller/users/**/*'
+    - app/controllers/users/**/*.rb
+    - app/helpers/**/*.rb
+    - app/models/ckeditor/**/*.rb
+    - app/models/**/*.rb
+    - app/uploaders/**/*.rb
+    - 'test/**/*'

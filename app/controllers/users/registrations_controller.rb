@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+# devise user controller
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
@@ -22,7 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         respond_with resource, location: after_sign_up_path_for(resource)
       end
     else
-      clean_up_passwords
+      # clean_up_passwords
       respond_with resource
     end
   end
@@ -42,9 +41,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # DELETE /resource
-  # def destroy
-  #   super
-  # end
+  def destroy
+    @deleteid = params[:id]
+    @user = User.find(params[:id])
+    authorize! :edit, @user, message: 'Not authorized as an administrator.'
+    flash[:notice] = 'Successfully deleted User.' if @user.destroy
+    redirect_to show_user_path
+  end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
@@ -60,14 +63,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     params.require(:user).permit(:email, :name, :password,
-                                 :password_confirmation)
+                                 :password_confirmation, :role_id, :avatar)
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
     devise_parameter_sanitizer.for(:account_update) << %i[email name password
                                                           password_confirmation]
- end
+  end
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)
@@ -78,13 +81,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   # super(resource)
   # end
-
-  def authenticate_user!(opts = {})
-    opts[:scope] = :user
-    if params[:action] == 'edit' && params[:controller] == 'users/registrations'
-      true
-    else
-      warden.authenticate!(opts) # if !devise_controller? || opts.delete(:force)
-    end
-  end
 end

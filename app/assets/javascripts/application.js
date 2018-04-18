@@ -11,4 +11,6 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require_tree 
+//= require ckeditor/init
+//= require_tree
+@import "bootstrap";

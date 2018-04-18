@@ -1,22 +1,43 @@
-<% users.each do |u| %>
-	<div id="div<%=u.id%>" class="ibox float-e-margins container">
-		<div class="ibox-content">
-			<div class="col-sm-9" >
-				<%= link_to profile_user_path(id: u.id) do %>
-				<h3 class="font-bold">
-					 <%= u.name  %></h3>
-	<% end %>
-</div>
-<div class="col-sm-3" >
-	<% if @accepted.include?(u)%>
-		<%= link_to 'UnFollow',unfollow_path({to_id: u.id}),remote: true,method: "delete", class: "btn btn-outline btn-default"%>
-		<% elsif current_user.requested_by_me?(u) %>
-			<%= link_to "Revert Request", revert_path({to_id: u.id}),remote: true,method: "delete",class: "btn btn-outline btn-default"%>
-		<% else %>
+<div class="col-sm-offset-1">
+  <table class="table table-hover" style=" width: 50%">
+    <thead>
+      <tr><b>User List</b>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |u| %><br>
+        <% if u.id != current_user.id %>
+				<div id="div<%=u.id%>" class="ibox float-e-margins container">
+					<div  class="ibox-content">
 
-			<%= link_to "Follow", follows_path({to_id: u.id}),remote: true,method: "post",class: "btn btn-outline btn-default"%>
-		<% end %>
-	</div>
-</div>
-</div>
-<% end %>
+						<h3 class="font-bold">
+          <tr>
+            <td>
+              <% if u.name.present? %>
+                <%= link_to u.name , profile_user_path(id: u.id) %>
+              <% else %>
+                <p>
+                  NOT AVAILABLE
+                </p>
+              <% end %>
+						</h3>
+            </td>
+            <td><%= u.email %></td>
+            <td>
+
+							<% if @accepted.include?(u)%>
+							<%= link_to 'UnFollow',unfollow_path({to_id: u.id}),remote: true,method: "delete", class: "btn btn-outline btn-default"%>
+							<% elsif current_user.requested_by_me?(u) %>
+								<%= link_to "Revert Request", revert_path({to_id: u.id}),remote: true,method: "delete",class: "btn btn-outline btn-default"%>
+							<% else %>
+								<%= link_to "Follow", follows_path({to_id: u.id}),remote: true,method: "post",class: "btn btn-outline btn-default"%>
+							<% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>

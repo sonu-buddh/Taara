@@ -17,7 +17,7 @@
                   <%= p.created_at.strftime("%d %b, %Y %H:%M") %>
                 </span>
               </h5>
-              <%= p.description%>
+              <%= raw(p.description) %>
             </div>
             <div class="w3-container  col-md-offset-1">
               <div class="w3-row">
@@ -37,6 +37,7 @@
                   <% else %>
                     <%= button_to "Remove from favourites", favourite_post_path, remote: true , method: "post" , id: "btn#{p.id}",class: "btn btn-w-m btn-default btn-space" %>
                   <% end %>
+                  <br>
                   <% if  p.favorite_lists.where(user_id: p.id ).count == 0 %>
                     <%= button_to "Like", feedbacks_like_path(post_id: p.id) ,remote: true , method: "post" , id: "likebtn#{p.id}",class: "btn btn-w-m btn-default" %>
                   <% else %>
@@ -51,9 +52,11 @@
                 <div align="right">
                   <%= p.user.name %>
                 </div>
-                <h3>
-                  <%= render p.tags %>
-                </h3>
+                <%  p.tags.each do |tag| %>
+                <div class="btn btn-default">
+                <%= render tag %>
+              </div>
+              <% end %>
               </div>
             </div>
           </div>

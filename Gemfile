@@ -36,13 +36,23 @@ gem 'jbuilder', '~> 2.5'
 # 'https://github.com/F3pix/acts-as-taggable-on'
 gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
 gem 'bootstrap-sass'
+gem 'cancancan', '~> 2.0'
+gem 'ckeditor'
+gem 'ckeditor-bootstrap-rails', '~> 1.0'
 gem 'devise'
+gem "font-awesome-rails"  
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'carrierwave', '~> 1.0'
+gem 'mini_magick'
 gem 'rubocop', require: false
+gem 'rails_best_practices'
 gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.1'
 gem 'will_paginate'
+gem 'betterlorem', '~> 0.1.2'
 gem 'pry'
+
+gem 'bootstrap_form', '~> 2.0.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger

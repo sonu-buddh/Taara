@@ -1,14 +1,16 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   root to: 'dashboard#index'
   resources :dashboard, only: [:index]
   resources :post, only: %i[new create show edit update destroy]
   resources :tags, only: %i[index show]
 
-  devise_for :users, controllers: {
+  devise_for :users,path: 'users', controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
-    account_update: 'users/registrations'
-  }
+    account_update: 'users/registrations',
+    passwords: "user_passwords"
+   }
 
   devise_scope :user do
     get 'show_user', to: 'dashboard#show_user'
@@ -35,5 +37,8 @@ Rails.application.routes.draw do
     get 'followings', to: 'follows#followings_list'
     get 'followers', to: 'follows#followers_list'
     delete 'follows/unblockuser'
+    get 'delete', to: 'admins#delete_user'
+    get 'manage_user', to: 'admins#manage_user'
+    post 'delete', to: 'admins#delete_user'
   end
 end

@@ -14,7 +14,7 @@
                   <%= p.created_at.strftime("%d %b, %Y %H:%M") %>
                 </span>
               </h5>
-              <%= p.post.description%>
+              <%= raw(p.post.description )%>
             </div>
             <div class="w3-container">
               <div class="w3-row">
@@ -33,7 +33,7 @@
                   <% else %>
                     <%= button_to "Remove from favourites", favourite_post_path(post_id: p.post.id), remote: true , method: "post" , id: "btn#{p.post_id}",class: "btn btn-w-m btn-default btn-space" %>
                   <% end %>
-
+                  <br>
                   <% if  p.post.favorite_lists.where(user_id: p.post.id ).count == 0 %>
                     <%= button_to "Like", feedbacks_like_path(post_id: p.post.id) ,remote: true , method: "post" , id: "likebtn#{p.post.id}",class: "btn btn-w-m btn-default" %>
                   <% else %>

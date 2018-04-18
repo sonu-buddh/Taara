@@ -2,18 +2,21 @@
 class DashboardController < ApplicationController
   helper_method :sort_column, :sort_direction
 
+  # load_and_authorize_resource
+
   def index
     @posts = Post.order("#{sort_column} #{sort_direction}")
+                 .paginate(page: params[:page], per_page: 5)
+                 .order('created_at DESC')
   end
 
   def profile
     @user = User.find_by(id: params[:id])
-    if !@user.present?
+    if @user.blank?
       redirect_to root_path
     else
-      @posts = @user.posts
+      @posts = @user.posts.order("#{sort_column} #{sort_direction}")
     end
-    @posts = @user.posts.order("#{sort_column} #{sort_direction}")
   end
 
   def show_user
@@ -23,13 +26,14 @@ class DashboardController < ApplicationController
   def search
     @posts = Post.all.where('title LIKE ? OR description LIKE ? ',
                             "%#{params[:search]}%", "%#{params[:search]}%")
+                 .paginate(page: params[:page], per_page: 3)
   end
 
   private
 
-  def user_params
-    params[:user].permit(:email, :password, :name)
-  end
+  # def user_params
+  #   params[:user].permit(:email, :password, :name, :page)
+  # end
 
   def sortable_columns
     ['created_at']

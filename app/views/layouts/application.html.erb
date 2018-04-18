@@ -12,14 +12,49 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-
+	<script src="https://cdn.ckeditor.com/[version.number]/[distribution]/ckeditor.js"></script>
 	<body>
-		<%= render :partial => "layouts/header" %>
-		<p class="notice"><%= notice %></p>
-		<p class="alert"><%= alert %></p>
-		<div style="min-height:550px;" class="w3-light-grey" >
-			<%= yield %>
-		</div>
-		<%= render :partial => "layouts/footer" %>
-	</body>
+
+		<% if current_user.present? %>
+			<% if current_user.admin_role? %>
+				<%= render 'layouts/admin_layout' %>
+			<% else %>
+				<%= render 'layouts/user_layout' %>
+			<% end %>
+		<% else%>
+			<nav class="navbar-inverse navbar-fixed-top">
+				<div class="container-fluid">
+					<div class="collapse navbar-collapse" id="myNavbar">
+						<ul class="nav navbar-nav">
+							<li><%= link_to "Home", root_path %></li>
+							<div class="navbar-form navbar-left" align="right">
+								<%= form_tag(dashboard_search_path, :method => "get", id: "search-form") do %>
+								<%= text_field_tag :search, params[:search], placeholder: "What're we looking for ?" ,class: 'form-control',required: true %>
+								<%= submit_tag "Search", :name => nil,class: 'btn btn-primary' , id: "search_submit" %>
+							</div>
+						<% end %>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li><%= link_to "Login", new_user_session_path %></li>
+						<li><%= link_to "Sign up", new_user_registration_path %></li>
+					</ul>
+					<li>
+						<% if user_signed_in? %>
+							<%= link_to "Logout", destroy_user_session_path, method: :delete %>
+						</li>
+					<% end %>
+				</ul>
+		</ul>
+	</div>
+</div>
+</nav>
+<% end %>
+<div style="min-height:550px;" class="w3-light-grey">
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+<%= yield %>
+</div>
+<%= render 'layouts/footer' %>
+</body>
 </html>

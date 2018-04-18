@@ -3,3 +3,11 @@ $('#right_div').html("
 
 jQuery('#right_div').html,(" 'dashboard/show_user' )");
 $('.pagination a').attr('data-remote', 'true');
+
+$('#my-posts').append('<%= j render @posts %>');
+<% if @posts.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @posts %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+<% end %>

@@ -19,13 +19,12 @@ class FollowsController < ApplicationController
       render html: 'you already requested'
     end
     fetch_records
-    end
+  end
 
   def approved
     @id = params[:from_id]
-    accept = FollowingList.requested.where('to_id = ? and from_id = ?',
-                                           current_user.id, params[:from_id])
-    accept[0].accepted!
+    request_user = User.find(@id)
+    current_user.approved_request(request_user)
     fetch_records
   end
 
@@ -56,14 +55,21 @@ class FollowsController < ApplicationController
   def followings_list
     @following = current_user.followings
                              .paginate(page: params[:page], per_page: 5)
+    fetch_records
+  end
+
+  def followers_list
+    @follower = current_user.followers
+                            .paginate(page: params[:page], per_page: 5)
+    fetch_records
   end
 
   private
 
   def fetch_records
-    @allusers =  User.all
+    allusers = User.all
     @requested = current_user.requested_users
     @accepted = current_user.followings
-    @users = @allusers - @requested
+    @users = allusers - @requested
   end
 end

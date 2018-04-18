@@ -2,6 +2,8 @@
 class PostController < ApplicationController
   before_action :authenticate_user!
 
+  load_and_authorize_resource
+
   def new
     @post = Post.new
   end
@@ -9,12 +11,11 @@ class PostController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
-
     if @post.save
       flash[:success] = 'post  saved successfully !'
       redirect_to dashboard_index_path(current_user)
     else
-      render action: :new
+      render :new
     end
   end
 
@@ -24,11 +25,12 @@ class PostController < ApplicationController
 
   def update
     @post = current_user.posts.find(params[:id])
+    authorize! :update, @post, message: 'Not authorized as an administrator.'
     if @post.update_attributes(post_params)
       flash[:success] = 'Post updated!'
       redirect_to root_path
     else
-      render action: :edit
+      render :edit
     end
   end
 
