@@ -54,13 +54,13 @@ class FollowsController < ApplicationController
 
   def followings_list
     @following = current_user.followings
-                             .paginate(page: params[:page], per_page: 5)
+                             .paginate(page: params[:page], per_page: 10)
     fetch_records
   end
 
   def followers_list
     @follower = current_user.followers
-                            .paginate(page: params[:page], per_page: 5)
+                            .paginate(page: params[:page], per_page: 10)
     fetch_records
   end
 

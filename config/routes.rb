@@ -26,19 +26,13 @@ Rails.application.routes.draw do
     get  'dashboard/search'
 
     get 'follows', to: 'follows#index'
-
     post 'follows', to: 'follows#follow_req'
     put 'approved', to: 'follows#approved'
     delete 'cancel', to: 'follows#cancel_request'
     delete 'revert', to: 'follows#revert_request'
     delete 'unfollow', to: 'follows#unfollow'
-    post 'block', to: 'follows#blockuser'
-    get 'follows/search', to: 'follows#search'
     get 'followings', to: 'follows#followings_list'
     get 'followers', to: 'follows#followers_list'
-    delete 'follows/unblockuser'
-    get 'delete', to: 'admins#delete_user'
-    get 'manage_user', to: 'admins#manage_user'
-    post 'delete', to: 'admins#delete_user'
+
   end
 end

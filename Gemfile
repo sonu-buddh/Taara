@@ -40,7 +40,7 @@ gem 'cancancan', '~> 2.0'
 gem 'ckeditor'
 gem 'ckeditor-bootstrap-rails', '~> 1.0'
 gem 'devise'
-gem "font-awesome-rails"  
+gem "font-awesome-rails"
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'carrierwave', '~> 1.0'

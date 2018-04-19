@@ -44,7 +44,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def destroy
     @deleteid = params[:id]
     @user = User.find(params[:id])
-    authorize! :edit, @user, message: 'Not authorized as an administrator.'
     flash[:notice] = 'Successfully deleted User.' if @user.destroy
     redirect_to show_user_path
   end
