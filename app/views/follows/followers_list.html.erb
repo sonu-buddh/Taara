@@ -1,33 +1,67 @@
-<%= render :partial => "dashboard/header_title" %>
-<% @follower.each do |u| %>
-  <% if u != current_user %>
-    <div id="div<%=u.id%>" class="ibox float-e-margins container">
-      <div class="ibox-content">
-        <div class="col-sm-3">
-          <%= link_to profile_user_path(id: u.id) do %>
-          <h3 class="font-bold">
-            <%= u.name %></h3>
-        <% end %>
-      </div>
-      <div >
-        <% if @accepted.include?(u)%>
-          <%= link_to 'UnFollow',unfollow_path({to_id: u.id}),remote: true,method: "delete", class: "btn btn-outline btn-default"%>
-          <% elsif current_user.requested_by_me?(u) %>
-            <%= link_to "Revert Request", revert_path({to_id: u.id}),remote: true,method: "delete",class: "btn btn-outline btn-default"%>
-          <% else %>
+<!-- <%= render :partial => "dashboard/header_title" %>
 
-            <%= link_to "Follow", follows_path({to_id: u.id}),remote: true,method: "post",class: "btn btn-outline btn-default"%>
+<div class="w3-content" style="max-width:2000px">
+  <div class="w3-row col-md-offset-2">
+    <div class="w3-col 14 s10 ">
+      <div class="w3-card-4 w3-margin w3-white">
+        <div class="w3-container  col-md-offset-1">
+
+          <% @follower.each do |u| %>
+            <% if u != current_user %>
+              <div id="div<%=u.id%>" class="ibox float-e-margins container">
+                <div class="ibox-content table">
+                  <div class="col-sm-3">
+                    <%= link_to profile_user_path(id: u.id) do %>
+                    <h3 class="font-bold">
+                      <%= u.name %></h3>
+                  <% end %>
+                </div>
+                <div >
+                  <% if @accepted.include?(u)%>
+                    <%= link_to 'UnFollow',unfollow_path({to_id: u.id}),remote: true,method: "delete", class: "btn btn-outline btn-default"%>
+                    <% elsif current_user.requested_by_me?(u) %>
+                      <%= link_to "Revert Request", revert_path({to_id: u.id}),remote: true,method: "delete",class: "btn btn-outline btn-default"%>
+                    <% else %>
+                      <%= link_to "Follow", follows_path({to_id: u.id}),remote: true,method: "post",class: "btn btn-outline btn-default"%>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+
+            <% else %>
+              <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                  <h3>NO Followers</h3>
+                </div>
+              </div>
+            <% end %>
           <% end %>
 
         </div>
       </div>
     </div>
+  </div>
+</div> -->
 
-  <% else %>
-    <div class="ibox float-e-margins">
-      <div class="ibox-content">
-        <h3>NO Followers</h3>
-      </div>
-    </div>
-  <% end %>
-<% end %>
+
+
+	<div class="row">
+		<div class="wrapper wrapper-content animated fadeIn">
+			<h2>Followers Users</h2>
+			<% if @users.present? %>
+			<% @users.each do |user| %>
+			<div id="card<%=user.id%>" class="col-lg-3">
+				<div class="contact-box">
+					<h3><%=link_to user.name, user_profile_path(id: user.id)%></h3>
+					<p><i class="fa fa-map-marker"></i>  <%=user.city.city_name%></p>
+					<div class="contact-box-footer">
+						<%= link_to '#',class: "btn btn-xs btn-danger", id: "btn#{user.id}" do%>
+							<i class="fa fa-times"> button</i>
+						<% end %>
+					</div>
+				</div>
+			</div>
+			<% end %>
+			<% end %>
+		</div>
+	</div>

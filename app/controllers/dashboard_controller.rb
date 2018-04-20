@@ -5,6 +5,7 @@ class DashboardController < ApplicationController
   # load_and_authorize_resource
 
   def index
+      @pd = params[:post_id]
     @posts = Post.order("#{sort_column} #{sort_direction}")
                  .paginate(page: params[:page], per_page: 5)
                  .order('created_at DESC')

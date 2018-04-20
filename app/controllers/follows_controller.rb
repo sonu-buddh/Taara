@@ -45,6 +45,7 @@ class FollowsController < ApplicationController
   end
 
   def unfollow
+
     unfollow_req = FollowingList.find_by('to_id = ? and from_id = ?',
                                          params[:to_id], current_user.id)
     FollowingList.delete(unfollow_req.id)

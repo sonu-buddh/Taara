@@ -71,29 +71,32 @@
 				<div class="w3-card-4 w3-margin w3-white">
 					<div class="w3-container  col-md-offset-1" >
 						<div align="right" id="divbtn<%=p.id%>">
-							<% if current_user.present? %>
-  							<% if p.user == current_user || current_user.admin_role? %>
-	    						<%= link_to edit_post_path(id: p.id),:method => :get, class: "btn btn-info btn-lg" do%> <i class="fa fa-edit"></i> <% end %>
-			    				<%= link_to post_path(id: p.id),:method => :delete, remote: true,:confirm => "Are you sure?" , class: "btn btn-info btn-lg" do%> <i class="fa fa-trash"></i> <% end %>
-					  		<% end %>
-							<% end %>
-									<% if current_user.present? %>
-						    		<% if  p.favorite_lists.where(user_id: current_user.id ).count == 0 %>
-							        <%= link_to favourite_post_path(post_id: p.id),remote: true , method: "post"  , class: "btn btn-info btn-lg" do%> <i class="glyphicon glyphicon-star icon-a" aria-hidden="true"></i> <% end %>
-							      <% else %>
-							        <%= link_to favourite_post_path(post_id: p.id),remote: true , method: "post"  , class: "btn btn-info btn-lg" do%> <i class="glyphicon glyphicon-star"></i> <% end %>
-							      <% end %>
 
-							    <% if  p.feedbacks.where(user_id: current_user.id ).count == 0 %>
-							       <%= link_to feedbacks_like_path(post_id: p.id), remote: true , method: "post" , id: "likebtn#{p.id}", class: "btn btn-warning btn-lg icon-a"  do%> <i class="fas fa-heart" aria-hidden="true" ></i> <% end %>
-							    <% else %>
-							       <% if  p.feedbacks.where(user_id: p.id , like: true).count == 0 %>
-							          <%= link_to feedbacks_like_path(post_id: p.id), remote: true , method: "post"  , id: "likebtn#{p.id}", class: "btn btn-warning btn-lg " do%> <i class="fas fa-heart" aria-hidden="true" ></i> <% end %>
-      							<% else %>
-			        					<%= link_to feedbacks_like_path(post_id: p.id), remote: true , method: "post"  , id: "likebtn#{p.id}", class: "btn btn-warning btn-lg icon-a" do%> <i class="fas fa-heart"></i> <% end %>
-							    	<% end %>
-								 <% end %>
-							 <% end %>
+							<% if current_user.present? %>
+								<% if p.user == current_user || current_user.admin_role? %>
+							<%= link_to edit_post_path(id: p.id),:method => :get, class: "btn btn-info " do%> <i class="fa fa-edit"></i> <% end %>
+							<%= link_to post_path(id: p.id),:method => :delete, remote: true,:confirm => "Are you sure?" , class: "btn btn-info" do%> <i class="fa fa-trash"></i> <% end %>
+							<% end %>
+							<% end %>
+
+
+							<% if current_user.present? %>
+								<% if  p.favorite_lists.where(user_id: current_user.id ).count == 0 %>
+									 <%= link_to favourite_post_path(post_id: p.id),remote: true , method: "post"  ,id: "favbtn#{p.id}", class: "btn btn-success" do%> <i class="glyphicon glyphicon-star" aria-hidden="true"></i> <% end %>
+								<% else %>
+									 <%= link_to favourite_post_path(post_id: p.id),remote: true , method: "post"  , id: "favbtn#{p.id}",class: "btn btn-info " do%> <i class="glyphicon glyphicon-star "></i> <% end %>
+								<% end %>
+
+							<% if current_user.feedbacks.where(post_id: p.id).present? %>
+							<%= link_to feedbacks_like_path(post_id: p.id), remote: true , method: "post"  , id: "likebtn#{p.id}", class: "btn btn-danger" do%> <i class="fa fa-heart" aria-hidden="true" ></i> <% end %>
+
+								<% else %>
+								<%= link_to feedbacks_like_path(post_id: p.id), remote: true , method: "post"  , id: "likebtn#{p.id}", class: "btn btn-success" do%> <i class="fa fa-heart"></i> <% end %>
+
+								<% end %>
+								<% end %>
+
+
 						</div>
 						<h3>
 							<tr>
