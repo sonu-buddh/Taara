@@ -1,11 +1,1 @@
-
-$("#favbtn<%=@pid%>").off().on("click", function(){
-
-  if($(this).hasClass('btn btn-success')){
-    $(this).removeClass('btn btn-success').addClass('btn btn-info');
-      }
-      else
-      {
-         $(this).removeClass('btn btn-info').addClass('btn btn-success');
-      }
-});
+$("#favbtn<%=@pid%>").toggleClass("btn btn-success").toggleClass("btn btn-info");

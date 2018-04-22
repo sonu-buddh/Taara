@@ -1,5 +1,5 @@
 <%= render :partial => "dashboard/header_title" %>
-
+<% if @following.present? %>
 <div class="w3-content" style="max-width:2000px">
 	<div class="w3-row col-md-offset-2">
 		<div class="w3-col 14 s10 ">
@@ -53,3 +53,4 @@
 		</div>
 	</div>
 </div>
+<% end %>

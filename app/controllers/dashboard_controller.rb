@@ -25,9 +25,11 @@ class DashboardController < ApplicationController
   end
 
   def search
+    if params[:search].present?
     @posts = Post.all.where('title LIKE ? OR description LIKE ? ',
                             "%#{params[:search]}%", "%#{params[:search]}%")
-                 .paginate(page: params[:page], per_page: 3).present?
+                 .paginate(page: params[:page], per_page: 3)
+   end
   end
 
   private

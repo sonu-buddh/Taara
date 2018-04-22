@@ -16,7 +16,7 @@
 
               <% if current_user.present? %>
                 <% if  @fav_list.where(user_id: current_user.id ).present?%>
-                  <%= link_to favourite_post_path(post_id: p.post.id),remote: true , method: "post"  ,id: "favbtn#{p.post.id}", class: "btn btn-success" do%> <i class="glyphicon glyphicon-star" aria-hidden="true"></i> <% end %>
+                  <%= link_to favourite_post_path(post_id: p.post.id),remote: true , method: "post"  ,id: "favbtn#{p.post.id}", class: " btn btn-success" do%> <i class="glyphicon glyphicon-star" aria-hidden="true"></i> <% end %>
                 <% else %>
                    <%= link_to favourite_post_path(post_id: p.post.id),remote: true , method: "post"  , id: "favbtn#{p.post.id}",class: "btn btn-info " do%> <i class="glyphicon glyphicon-star "></i> <% end %>
                 <% end %>

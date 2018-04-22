@@ -11,17 +11,19 @@
                  <%= link_to post_path(id: p.id),:method => :delete, remote: true,:confirm => "Are you sure?" , class: "btn btn-info" do%> <i class="fa fa-trash"></i> <% end %>
                <% end %>
 
+               <% if current_user.normal_user_role?%>
                <% if  p.favorite_lists.where(user_id: current_user.id ).count == 0 %>
-                  <%= link_to favourite_post_path(post_id: p.id),remote: true , method: "post"  ,id: "favbtn#{p.id}", class: "btn btn-success" do%> <i class="glyphicon glyphicon-star" aria-hidden="true"></i> <% end %>
+                  <%= link_to favourite_post_path(post_id: p.id),remote: true , method: "post"  ,id: "favbtn#{p.id}", class: "btn btn-info" do%> <i class="glyphicon glyphicon-star" aria-hidden="true"></i> <% end %>
                 <% else %>
-                   <%= link_to favourite_post_path(post_id: p.id),remote: true , method: "post"  , id: "favbtn#{p.id}",class: "btn btn-info " do%> <i class="glyphicon glyphicon-star "></i> <% end %>
+                   <%= link_to favourite_post_path(post_id: p.id),remote: true , method: "post"  , id: "favbtn#{p.id}",class: "btn btn-success " do%> <i class="glyphicon glyphicon-star "></i> <% end %>
                 <% end %>
 
               <% if current_user.feedbacks.where(post_id: p.id).present? %>
-                 <%= link_to feedbacks_like_path(post_id: p.id), remote: true , method: "post"  , id: "likebtn#{p.id}", class: "btn btn-danger" do%> <i class="fa fa-heart" aria-hidden="true" ></i> <% end %>
+                 <%= link_to feedbacks_like_path(post_id: p.id), remote: true , method: "post"  , id: "likebtn#{p.id}", class: "btn btn-success" do%> <i class="fa fa-heart" aria-hidden="true" ></i> <% end %>
               <% else %>
-                 <%= link_to feedbacks_like_path(post_id: p.id), remote: true , method: "post"  , id: "likebtn#{p.id}", class: "btn btn-success" do%> <i class="fa fa-heart"></i> <% end %>
+                 <%= link_to feedbacks_like_path(post_id: p.id), remote: true , method: "post"  , id: "likebtn#{p.id}", class: "btn btn-danger" do%> <i class="fa fa-heart"></i> <% end %>
               <% end %>
+          <% end %>
           <% end %>
         </div>
               <tr>

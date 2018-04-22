@@ -1,10 +1,1 @@
-
-$("#likebtn<%=@pid%>").off().on("click", function(){
-  if($(this).hasClass('btn btn-success')){
-    $(this).removeClass('btn btn-success').addClass('btn btn-danger');
-      }
-      else
-      {
-         $(this).removeClass('btn btn-danger').addClass('btn btn-success');
-      }
-});
+$("#likebtn<%=@pid%>").toggleClass("btn btn-success").toggleClass("btn btn-danger");
