@@ -1,1 +1,12 @@
-$('#userlist').html('<%= j( render partial: "follows/userlist") %>');
+$('#userlist').html('<%= j( render partial: "follows/userlist", locals: { users: @users } ) %>');
+//
+//
+// if($('#btn<%=@uid%>').html() == "UnFollow")
+//
+// 		{
+// 			$("#btn<%=@uid%>").html("Follow");
+// 		}
+// 	else
+// 		{
+// 			$("#btn<%=@uid%>").html("UnFollow");
+// 		}

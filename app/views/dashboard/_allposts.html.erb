@@ -10,10 +10,8 @@
                  <%= link_to edit_post_path(id: p.id),:method => :get, class: "btn btn-info " do%> <i class="fa fa-edit"></i> <% end %>
                  <%= link_to post_path(id: p.id),:method => :delete, remote: true,:confirm => "Are you sure?" , class: "btn btn-info" do%> <i class="fa fa-trash"></i> <% end %>
                <% end %>
-              <% end %>
 
-              <% if current_user.present? %>
-                  <% if  p.favorite_lists.where(user_id: current_user.id ).count == 0 %>
+               <% if  p.favorite_lists.where(user_id: current_user.id ).count == 0 %>
                   <%= link_to favourite_post_path(post_id: p.id),remote: true , method: "post"  ,id: "favbtn#{p.id}", class: "btn btn-success" do%> <i class="glyphicon glyphicon-star" aria-hidden="true"></i> <% end %>
                 <% else %>
                    <%= link_to favourite_post_path(post_id: p.id),remote: true , method: "post"  , id: "favbtn#{p.id}",class: "btn btn-info " do%> <i class="glyphicon glyphicon-star "></i> <% end %>
@@ -24,60 +22,53 @@
               <% else %>
                  <%= link_to feedbacks_like_path(post_id: p.id), remote: true , method: "post"  , id: "likebtn#{p.id}", class: "btn btn-success" do%> <i class="fa fa-heart"></i> <% end %>
               <% end %>
-            <% end %>
+          <% end %>
         </div>
-            <h3>
               <tr>
                 <u>
-                  <%= link_to p.title, profile_user_path(id: p.id) %>
-                </u>
-              </h3>
+                  <h3>
+                   <%= link_to p.title, profile_user_path(id: p.id) %>
+                 </h3>
+               </u>
+
               <div class="dropdown profile-element pmargin">
-              <div class="col-md-3 pmargin">
-                 <img alt="image" class="img-circle" <%= image_tag(p.user.avatar_url , size: "40x40") %>
-                 <%= p.user.name %>
-               </div>
-               <div class="col-md-3 pmargin">
-                 <%= p.created_at.strftime("%d %b, %Y") %>
-              </div>
-            </div>
+                 <div class="col-md-3 pmargin">
+                   <img alt="image" class="img-circle" <%= image_tag(p.user.avatar_url , size: "40x40") %>
+                      <%= p.user.name %>
+                 </div>
 
-              <div class="col-md-12 pmargin">
-                <p class="pmargin">
+                <div class="col-md-3 pmargin">
+                   <%= p.created_at.strftime("%d %b, %Y") %>
+                </div>
+             </div>
 
-<% if p.description.length > 250 %>
-  <%= raw p.description.truncate(250) %>
-  <%= link_to '...Read more', '', class: "read-more-#{p.id} danger" %>
-  <script>
-    $('.read-more-<%= p.id %>').on('click', function(e) {
-      e.preventDefault()
-      $(this).parent().html('<%= escape_javascript raw(p.description)%>')
-    })
-  </script>
-<% else %>
-    <%= raw(p.description) %>
-<% end %>
-
+            <div class="col-md-12 pmargin">
+              <p class="pmargin">
+                <% if p.description.length > 250 %>
+                  <%= raw p.description.truncate(250) %>
+                  <%= link_to '...Read more', '', class: "read-more-#{p.id} danger" %>
+               <script>
+                    $('.read-more-<%= p.id %>').on('click', function(e) {
+                     e.preventDefault()
+                    $(this).parent().html('<%= escape_javascript raw(p.description)%>')
+                      })
+              </script>
+              <% else %>
+                   <%= raw(p.description) %>
+              <% end %>
             </p>
             </div>
         </div>
-
-
             <div class="w3-container  col-md-offset-1">
               <div class="w3-row">
                 <%  p.tags.each do |tag| %>
-
-
-
-<div class="button">
-
-  <%=  render tag %>
-</div>
-
-              <% end %>
-              </div>
-            </div>
-          </div>
+                  <div class="button">
+                    <%=  render tag %>
+                  </div>
+                <% end %>
+             </div>
+           </div>
         </div>
       </div>
-    <% end %>
+    </div>
+  <% end %>

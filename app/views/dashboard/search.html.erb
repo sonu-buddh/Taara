@@ -1,2 +1,4 @@
 <%= render :partial => "dashboard/header_title" %>
+<% if @posts.present? %>
 <%= render partial: 'dashboard/post' %>
+<% end %>

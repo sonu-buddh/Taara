@@ -17,8 +17,9 @@ class FavouritesController < ApplicationController
   end
 
   def fav_post_list
-      @pidi = params[:post_id]
-    @fav_list = FavoriteList.where(user: current_user).paginate(page: params[:page], per_page: 5)
-    .order('created_at DESC')
+    @pidi = params[:post_id]
+    @fav_list = FavoriteList.where(user: current_user)
+                            .paginate(page: params[:page], per_page: 5)
+                            .order('created_at DESC')
   end
 end

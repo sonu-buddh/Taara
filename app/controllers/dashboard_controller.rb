@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
   # load_and_authorize_resource
 
   def index
-      @pd = params[:post_id]
+    @pd = params[:post_id]
     @posts = Post.order("#{sort_column} #{sort_direction}")
                  .paginate(page: params[:page], per_page: 5)
                  .order('created_at DESC')
@@ -25,11 +25,9 @@ class DashboardController < ApplicationController
   end
 
   def search
-    if params[:search].present?
-      @posts = Post.all.where('title LIKE ? OR description LIKE ? ',
-                              "%#{params[:search]}%", "%#{params[:search]}%")
-                   .paginate(page: params[:page], per_page: 3)
-    end
+    @posts = Post.all.where('title LIKE ? OR description LIKE ? ',
+                            "%#{params[:search]}%", "%#{params[:search]}%")
+                 .paginate(page: params[:page], per_page: 3).present?
   end
 
   private
