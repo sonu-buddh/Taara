@@ -1,0 +1,39 @@
+<script type='text/javascript' charset='UTF-8'>
+  $(document).ready(function(){
+    $('form[data-remote]').bind('ajax:before', function(){
+      for (instance in CKEDITOR.instances){
+        CKEDITOR.instances[instance].updateElement();
+      }
+    });
+  });
+</script>
+<div class="w3-content" style="max-width:800px">
+  <div class="w3-row s10 col-md-offset-1">
+    <div class="w3-col s20 ">
+      <div class="w3-card-4 w2-margin w3-white">
+        <div class="w3-container>
+<div class="ibox float-e-margins">
+
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <h3 class="m-t-none m-b">Create Post</h3>
+      <div class="form-group">
+        <%= form_for @post, url: post_index_path do |f|%>
+        <%= f.label :title %><br/>
+        <%= f.text_field :title , class: 'form-control',required: true %>
+        <%= f.label :tags %><br/>
+        <%= f.text_field :tag_list,  class: 'form-control', value: f.object.tag_list.to_s %><br>
+        <%= f.label :description, as: :ckeditor %><br/>
+        <%= f.cktext_area :description, as: :ckeditor, input_html: { ckeditor: { height: 400 } } , class: 'form-control',required: true, style: "min-height: 250px;" %><br>
+        <%= f.submit "Save Posts" , class: "btn btn-sm btn-primary pull-right m-t-n-xs" %>
+      <% end %>
+
+
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

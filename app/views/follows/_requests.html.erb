@@ -1,0 +1,40 @@
+<div class="w3-content" style="max-width:2000px">
+	<div class="w3-row col-md-offset-2">
+		<div class="w3-col 14 s10 ">
+			<div class="w3-card-4 w3-margin w3-white">
+				<div class="col-sm-offset-1">
+					<table class="table" style=" width: 100%">
+						<% if requests.count > 0 %>
+							<tr>
+								<th>User Name</th>
+								<th>Action</th>
+							</tr>
+				
+							<div class="container">
+								<% requests.each do |f| %>
+									<div id="div<%=f.id%>" class="ibox float-e-margins ">
+										<div class="ibox-content">
+											<tr>
+												<td>
+													<h3 class="font-bold">
+														<%= f.name %>
+													</h3>
+												</td>
+
+												<td>
+													<%= link_to "Accept",approved_path({from_id: f.id}),remote: true,method: "put", class: "btn btn-outline btn-success" %>
+													<%= link_to "Cancel",cancel_path({from_id: f.id}),remote: true,method: "delete", class: "btn btn-outline btn-warning"%>
+												</td>
+											</tr>
+										</div>
+									</div>
+								<% end %>
+							</div>
+						<% end %>
+
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

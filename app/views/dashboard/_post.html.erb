@@ -1,0 +1,10 @@
+<div class="btn btn-default col-md-offset-9">
+    <%= sort_link "created_at", "Order By" %>
+</div>
+
+<%= render partial: 'dashboard/allposts' %>
+
+<div id="infinite-scrolling" class="col-md-offset-2">
+  <%= will_paginate @posts , renderer: BootstrapPagination::Rails %>
+</div>
+  

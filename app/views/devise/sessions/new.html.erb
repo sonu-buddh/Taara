@@ -1,0 +1,28 @@
+<%= render :partial => "dashboard/header_title" %>
+<div class="ibox float-e-margins" style=" width: 50%">
+  <div class="ibox-content">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-2">
+        <h3 class="m-t-none m-b">Log in</h3>
+        <div class="form-group">
+
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <%= f.label :email %><br/>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+          <%= f.label :password %><br/>
+          <%= f.password_field :password, autocomplete: "off" ,required: true, class: 'form-control'%>
+          <% if devise_mapping.rememberable? -%>
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          <% end -%><br>
+          <%= f.submit "Log in" , class: "btn btn-sm btn-primary pull-right m-t-n-xs" %>
+        </div>
+      <% end %>
+
+      <%= render "devise/shared/links" %>
+
+    </div>
+  </div>
+</div>
+</div>
+</div>

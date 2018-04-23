@@ -1,0 +1,10 @@
+
+<div class="container page-wrapper">
+<%= render :partial => "dashboard/header_title" %>
+	<div id="userrequest">
+		<%= render partial: "follows/requests", locals: { requests: @requested }%>
+	</div>
+	<div id="userlist">
+		<%= render partial: "follows/userlist", locals: { users: @users } %>
+	</div>
+</div>

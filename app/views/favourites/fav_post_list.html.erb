@@ -1,0 +1,86 @@
+<%= render :partial => "dashboard/header_title" %>
+<div class="w3-light-grey">
+<% @fav_list.each do |p| %>
+  <div class="w3-content" style="max-width:2000px" id="btn<%=p.id%>">
+    <div class="w3-row col-md-offset-2">
+      <div class="w3-col 14 s10 " >
+        <div class="w3-card-4 w3-margin w3-white">
+          <div class="w3-container  col-md-offset-1" >
+            <div align="right" id="divbtn<%=p.id%>">
+              <% if current_user.present? %>
+                <% if p.post.user == current_user || current_user.admin_role? %>
+                 <%= link_to edit_post_path(id: p.post.id),:method => :get, class: "btn btn-info " do%> <i class="fa fa-edit"></i> <% end %>
+                 <%= link_to post_path(id: p.post.id),:method => :delete, remote: true,:confirm => "Are you sure?" , class: "btn btn-info" do%> <i class="fa fa-trash"></i> <% end %>
+                <% end %>
+              <% end %>
+
+              <% if current_user.present? %>
+                <% if  @fav_list.where(user_id: current_user.id ).present?%>
+                  <%= link_to favourite_post_path(post_id: p.post.id),remote: true , method: "post"  ,id: "favbtn#{p.post.id}", class: " btn btn-success" do%> <i class="glyphicon glyphicon-star" aria-hidden="true"></i> <% end %>
+                <% else %>
+                   <%= link_to favourite_post_path(post_id: p.post.id),remote: true , method: "post"  , id: "favbtn#{p.post.id}",class: "btn btn-info " do%> <i class="glyphicon glyphicon-star "></i> <% end %>
+                <% end %>
+
+              <% if current_user.feedbacks.where(post_id: p.id).present? %>
+                 <%= link_to feedbacks_like_path(post_id: p.post.id), remote: true , method: "post"  , id: "likebtn#{p.post.id}", class: "btn btn-danger" do%> <i class="fa fa-heart" aria-hidden="true" ></i> <% end %>
+              <% else %>
+                 <%= link_to feedbacks_like_path(post_id: p.post.id), remote: true , method: "post"  , id: "likebtn#{p.post.id}", class: "btn btn-success" do%> <i class="fa fa-heart"></i> <% end %>
+              <% end %>
+            <% end %>
+          </div>
+           <tr>
+            <u>
+              <h3>
+                <%= link_to p.post.title, profile_user_path(id: p.id) %>
+              </h3>
+            </u>
+
+            <div class="dropdown profile-element pmargin">
+              <div class="col-md-3 pmargin">
+                 <img alt="image" class="img-circle" <%= image_tag(p.user.avatar_url , size: "40x40") %>
+                   <%= p.user.name %>
+              </div>
+
+               <div class="col-md-3 pmargin">
+                 <%= p.created_at.strftime("%d %b, %Y") %>
+              </div>
+            </div>
+
+            <div class="col-md-12 pmargin">
+              <p class="pmargin">
+                <% if p.post.description.length > 250 %>
+                  <%= raw p.post.description.truncate(250) %>
+                    <%= link_to '...Read more', '', class: "read-more-#{p.id} danger" %>
+
+                    <script>
+                      $('.read-more-<%= p.id %>').on('click', function(e) {
+                        e.preventDefault()
+                        $(this).parent().html('<%= escape_javascript raw(p.post.description)%>')
+                      })
+                    </script>
+
+                <% else %>
+                    <%= raw(p.post.description) %>
+                <% end %>
+              </p>
+              </div>
+
+            <div class="w3-container">
+              <div class="w3-row">
+                <%  p.post.tags.each do |tag| %>
+                  <div class="button">
+                    <%=  render tag %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+    <div id="infinite-scrolling" class="col-md-offset-2">
+      <%= will_paginate @fav_list , renderer: BootstrapPagination::Rails %>
+    </div>

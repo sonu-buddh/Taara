@@ -1,0 +1,18 @@
+
+AllCops:
+  Excludes:
+    - 'app/assets/**/*'
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'data/**/*'
+    - 'db/**/*'
+    - 'public/**/*'
+    - 'ssl/**/*'
+    - 'vendor/**/*'
+    - 'Gemfile'
+    - app/controllers/users/**/*.rb
+    - app/helpers/**/*.rb
+    - app/models/ckeditor/**/*.rb
+    - app/models/**/*.rb
+    - app/uploaders/**/*.rb
+    - 'test/**/*'
